@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --------------------------------------------------
+   1. Base & Performance Setup
+-------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply antialiased min-h-screen text-slate-900 dark:text-slate-100 selection:bg-primary-500/20 selection:text-primary-600;
+  
+  /* Modern clean gradient background */
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  background-attachment: fixed;
+}
+
+.dark body {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* Production Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors;
+}
+
+/* --------------------------------------------------
+   2. Components Layer
+-------------------------------------------------- */
+@layer components {
+
+  /* Modern Crisp Surface (Dashboard Card) */
+  .card {
+    @apply rounded-xl p-5 sm:p-6
+           bg-white dark:bg-slate-900/80
+           border border-slate-200/80 dark:border-slate-800/80
+           shadow-[0_1px_3px_0_rgba(0,0,0,0.05),0_1px_2px_-1px_rgba(0,0,0,0.05)]
+           dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)]
+           transition-shadow duration-200 ease-in-out;
+  }
+
+  .card-hover {
+    @apply hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-md;
+  }
+
+  /* Primary Action Button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-white
+           bg-primary-600 hover:bg-primary-500 active:bg-primary-700
+           shadow-[0_1px_2px_0_rgba(16,24,40,0.05),inset_0_1px_0_0_rgba(255,255,255,0.15)]
+           border border-transparent
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900
+           transition-all duration-150 ease-out
+           disabled:pointer-events-none disabled:opacity-50 select-none;
+  }
+
+  /* Secondary Neutral Button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold
+           text-slate-700 dark:text-slate-200
+           bg-white dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-800
+           border border-slate-300 dark:border-slate-700
+           shadow-sm
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900
+           transition-all duration-150 ease-out
+           disabled:pointer-events-none disabled:opacity-50 select-none;
+  }
+
+  /* Clean Input Field */
+  .input-field {
+    @apply w-full rounded-lg px-3.5 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400
+           bg-white dark:bg-slate-900/60
+           border border-slate-300 dark:border-slate-700
+           shadow-sm
+           transition-colors duration-150 ease-in-out
+           hover:border-slate-400 dark:hover:border-slate-600
+           focus:border-primary-500 dark:focus:border-primary-500
+           focus:outline-none focus:ring-4 focus:ring-primary-500/10 dark:focus:ring-primary-500/20;
+  }
+
+  /* Form Labels */
+  .label-text {
+    @apply block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5;
+  }
+
+  /* Real-time Indicator Badge (Live status, Active connection, etc.) */
+  .badge-live {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium
+           bg-emerald-50 text-emerald-700 border border-emerald-200/60
+           dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20;
+  }
+
+  .badge-live::before {
+    content: "";
+    @apply w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse;
+  }
+}
