@@ -23,7 +23,6 @@ services:
   - type: web
     env: static
     name: employee-attrition-frontend
-    plan: free
     buildCommand: "cd frontend && npm ci && npm run build"
     staticPublishPath: "frontend/dist"
     envVars:
