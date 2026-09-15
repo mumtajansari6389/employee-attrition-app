@@ -9,13 +9,13 @@ services:
     startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: DATABASE_URL
-        value: $DATABASE_URL
-      - key: PYTHON_ENV
-        value: "production"
-      - key: CORS_ORIGINS
         fromDatabase:
           name: db
           property: connectionString
+      - key: PYTHON_ENV
+        value: "production"
+      - key: CORS_ORIGINS
+        value: '["https://employee-attrition-frontend.onrender.com"]'
     regions:
       - name: oregon
     scaling:
@@ -24,7 +24,8 @@ services:
       targetMemoryUtilizationPercentage: 70
 
   # Frontend Static Site
-  - type: static_site
+  - type: web
+    env: static
     name: employee-attrition-frontend
     plan: starter
     buildCommand: "cd frontend && npm ci && npm run build"
@@ -40,21 +41,9 @@ services:
       - path: "/*"
         destination: "/index.html"
 
-  # PostgreSQL Database
-  - type: pserv
-    name: employee-attrition-db
-    plan: starter
-    postgresVersion: "16"
-    region: oregon
-
 databases:
-  - name: attrition_db
-    dbName: attrition_production
+  - name: db
+    databaseName: attrition_production
     user: attrition_user
+    plan: starter
     region: oregon
-
-envVarGroups:
-  - name: database
-    envVars:
-      - key: DATABASE_URL
-        value: "postgresql://attrition_user:${DB_PASSWORD}@db-service:5432/attrition_production"
