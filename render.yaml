@@ -29,7 +29,6 @@ services:
     envVars:
       - key: VITE_API_BASE_URL
         value: "https://employee-attrition-backend.onrender.com"
-    region: oregon
     routes:
       - type: rewrite
         source: "/*"
