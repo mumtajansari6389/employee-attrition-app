@@ -18,10 +18,6 @@ services:
       - key: CORS_ORIGINS
         value: '["https://employee-attrition-frontend.onrender.com"]'
     region: oregon
-    scaling:
-      minInstances: 1
-      maxInstances: 3
-      targetMemoryUtilizationPercentage: 70
 
   # Frontend Static Site
   - type: web
